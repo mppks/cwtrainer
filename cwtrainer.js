@@ -154,11 +154,28 @@ class Sound {
     } 
 }
 
+// TODO добавить геттеры и сеттеры для call, name, qth
+// TODO сделать настоящий рандом
+class QSO {
+    #op = {call: "R1TBJ", name: "Kostya", qth: "Pestovo"};
+
+    constructor(op) {
+        if (typeof op == "object") this.#op = op;
+    }
+
+    random() {
+        let message = `UB1TAC DE ${this.#op.call} GM DR OP TNX FER CALL UR RST IS 599 5NN MY NAME IS ${this.#op.name} MY QTH IS ${this.#op.qth} HW? BK`;
+        return message;
+    }
+}
+
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let context = new AudioContext();
 
+let qso = new QSO();
+
 let text = document.querySelector("textarea");
-text.value = "GM DR OP TNX FER CALL UR RST IS 599 5NN MY NAME IS";
+text.value = qso.random();
 let sound;
 
 let playButton = document.getElementById("play");

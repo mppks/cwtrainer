@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Morse code abbreviations</title>
+        <title>CW QSO trainer</title>
     </head>
     <body>
-        <select>
-            <option>sine</option>
-            <option>square</option>
-            <option>sawtooth</option>
-            <option>triangle</option>
-        </select>
-        <textarea></textarea>
-        <button id="play">play</button>
-        <button id="stop">stop</button>        
+        <h1>CW QSO trainer</h1>
+        <div id="options">
+            <select>
+                <option>sine</option>
+                <option>square</option>
+                <option>sawtooth</option>
+                <option>triangle</option>
+            </select>
+        </div>
+        <div id="workarea">
+            <textarea></textarea>
+        </div>
+        <div id="controls">
+            <button id="play">play</button>
+            <button id="stop">stop</button>        
+        </div>
         <script src="cwtrainer.js"></script>
     </body>
 </html>
