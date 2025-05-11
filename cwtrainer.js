@@ -164,7 +164,7 @@ class QSO {
     }
 
     random() {
-        let message = `UB1TAC DE ${this.#op.call} GM DR OP TNX FER CALL UR RST IS 599 5NN MY NAME IS ${this.#op.name} MY QTH IS ${this.#op.qth} HW? BK`;
+        let message = `VVV = UB1TAC DE ${this.#op.call} GM DR OP TNX FER CALL UR RST IS 599 5NN MY NAME IS ${this.#op.name} MY QTH IS ${this.#op.qth} HW? BK`;
         return message;
     }
 }

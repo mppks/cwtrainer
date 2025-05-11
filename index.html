@@ -2,10 +2,48 @@
 <html>
     <head>
         <title>CW QSO trainer</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:regular,bold&subset=latin,cyrillic">
+        <style>
+            body {
+                margin: 0;
+                padding: 0 20px 20px 20px;
+                background-color: rgb(240,240,240);
+            }
+            h1, h2, h3 {
+                color: rgb(59, 59, 59);
+                font-family: "Ubuntu Mono", Arial, Helvetica, sans-serif;
+                border-bottom: 2px solid rgb(167,167,167);
+                padding-top: 10px;
+                padding-bottom: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .options, .controls, .workarea {
+                padding: 5px 10px;
+            }
+            select, textarea, button {
+                font-size: 1.2em;
+                font-family: "Ubuntu Mono", Arial, Helvetica, sans-serif;
+                border: 1px solid rgb(59, 59, 59);
+            }
+            textarea {
+                padding: 10px;
+                width: 400px;
+                height: 100px;
+            }
+            .controls {
+                width: 420px;
+                text-align: right;
+            }
+            button {
+                padding: 3px 10px;
+            }
+        </style>
     </head>
     <body>
         <h1>CW QSO trainer</h1>
-        <div id="options">
+        <div class="options">
             <select>
                 <option>sine</option>
                 <option>square</option>
@@ -13,10 +51,10 @@
                 <option>triangle</option>
             </select>
         </div>
-        <div id="workarea">
+        <div class="workarea">
             <textarea></textarea>
         </div>
-        <div id="controls">
+        <div class="controls">
             <button id="play">play</button>
             <button id="stop">stop</button>        
         </div>
