@@ -4,8 +4,12 @@
         <title>CW QSO trainer</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:regular,bold&subset=latin,cyrillic">
         <style>
+            html {
+                height: 100%;
+            }
             body {
-                margin: 0;
+                margin: 0 auto;
+                max-width: 760px;
                 padding: 0 20px 20px 20px;
                 background-color: rgb(240,240,240);
             }
@@ -50,6 +54,7 @@
                 <option>sawtooth</option>
                 <option>triangle</option>
             </select>
+            <input type="range">
         </div>
         <div class="workarea">
             <textarea></textarea>
