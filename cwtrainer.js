@@ -41,6 +41,7 @@ class MorseSound extends EventTarget {
     #start;
     #stop;
     #isPlaying = false;
+    #masterGain; // Master volume control
 
     // Morse code alphabet mapping
     static #MORSE_ALPHABET = new Map([
@@ -78,19 +79,22 @@ class MorseSound extends EventTarget {
     #initializeAudioNodes() {
         this.#oscillator = this.#context.createOscillator();
         this.#gainNode = this.#context.createGain();
-        
+        this.#masterGain = this.#context.createGain();
+
         // Set default values
         this.#oscillator.frequency.value = this.#frequency;
         this.#oscillator.type = DEFAULT_SETTINGS.WAVEFORM;
-        
-        // Connect audio nodes
+
+        // Connect audio nodes: oscillator -> gain (keying) -> masterGain (volume) -> destination
         this.#oscillator.connect(this.#gainNode);
-        this.#gainNode.connect(this.#context.destination);
+        this.#gainNode.connect(this.#masterGain);
+        this.#masterGain.connect(this.#context.destination);
 
         // Initialize timing
         this.#start = this.#context.currentTime;
         this.#stop = this.#start;
         this.#gainNode.gain.setValueAtTime(0, this.#start);
+        this.#masterGain.gain.value = this.#level;
 
         this.#oscillator.onended = () => {
             this.#isPlaying = false;
@@ -238,6 +242,9 @@ class MorseSound extends EventTarget {
     set volume(value) {
         if (value < 0 || value > 1) throw new Error('Volume must be between 0 and 1');
         this.#level = value;
+        if (this.#masterGain) {
+            this.#masterGain.gain.value = value;
+        }
     }
 
     get type() { return this.#oscillator?.type || DEFAULT_SETTINGS.WAVEFORM; }
@@ -383,7 +390,13 @@ class CWTrainer {
     #setupEventListeners() {
         this.#playButton.addEventListener('click', () => this.#handlePlay());
         this.#stopButton.addEventListener('click', () => this.#handleStop());
-        
+
+        // Volume slider
+        const volumeSlider = document.querySelector('.volume');
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', (e) => this.#handleVolumeChange(e));
+        }
+
         // Handle audio context resume (required by some browsers)
         document.addEventListener('click', () => {
             if (this.#audioContext.state === 'suspended') {
@@ -449,10 +462,22 @@ class CWTrainer {
         try {
             if (this.#morseSound) {
                 this.#morseSound.stop();
-            }         
+            }
         } catch (error) {
             console.error('Error stopping playback:', error);
         }
+    }
+
+    /**
+     * Handle volume slider change
+     * @private
+     */
+    #handleVolumeChange(e) {
+        const volume = parseFloat(e.target.value);
+        if (this.#morseSound) {
+            this.#morseSound.volume = volume;
+        }
+        DEFAULT_SETTINGS.VOLUME = volume;
     }
 
     /**
