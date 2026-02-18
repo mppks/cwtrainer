@@ -381,6 +381,13 @@ class CWTrainer {
 
         // Set initial text
         this.#textArea.value = this.#qsoGenerator.generateRandomMessage();
+
+        // Sync UI controls with default settings
+        const volumeSlider = document.querySelector('.volume');
+        const frequencySlider = document.querySelector('.frequency');
+
+        if (volumeSlider) volumeSlider.value = DEFAULT_SETTINGS.VOLUME;
+        if (frequencySlider) frequencySlider.value = DEFAULT_SETTINGS.FREQUENCY;
     }
 
     /**
@@ -395,6 +402,12 @@ class CWTrainer {
         const volumeSlider = document.querySelector('.volume');
         if (volumeSlider) {
             volumeSlider.addEventListener('input', (e) => this.#handleVolumeChange(e));
+        }
+
+        // Frequency slider
+        const frequencySlider = document.querySelector('.frequency');
+        if (frequencySlider) {
+            frequencySlider.addEventListener('input', (e) => this.#handleFrequencyChange(e));
         }
 
         // Handle audio context resume (required by some browsers)
@@ -478,6 +491,18 @@ class CWTrainer {
             this.#morseSound.volume = volume;
         }
         DEFAULT_SETTINGS.VOLUME = volume;
+    }
+
+    /**
+     * Handle frequency slider change
+     * @private
+     */
+    #handleFrequencyChange(e) {
+        const frequency = parseFloat(e.target.value);
+        if (this.#morseSound) {
+            this.#morseSound.frequency = frequency;
+        }
+        DEFAULT_SETTINGS.FREQUENCY = frequency;
     }
 
     /**
