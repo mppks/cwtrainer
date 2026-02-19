@@ -1,4 +1,2 @@
 ## CW QSO trainer
-Single page web application for training the reception of standard CW QSO text.
-
-https://mppks.github.io/cwtrainer/
+A single-page [web application](https://mppks.github.io/cwtrainer/ "CW QSO Trainer") for learning to hear standard CW QSO text signals.

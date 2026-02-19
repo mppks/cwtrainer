@@ -1,13 +1,19 @@
-/**
- * CW QSO Trainer
- * 
+/*
+ * Copyright (c) 2026 CW QSO Trainer
+ * SPDX-License-Identifier: MIT
+ *
+ * Author: Konstantin Pavlov <pavlovks@gmail.com>
+ * Created: 2026-02-01
+ * Description: A single-page web application for learning to hear standard CW QSO text signals.
+ */
+
+/*
  * Morse Code timing standards:
  * - Dash = 3 dots
  * - Pause between elements of a character = 1 dot
  * - Pause between characters in a word = 3 dots
  * - Pause between words = 7 dots
  */
-
 // Constants
 const MORSE_TIMING = {
     DOT_MULTIPLIER: 1,
