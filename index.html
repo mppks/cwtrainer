@@ -26,39 +26,45 @@
             .options, .controls, .workarea {
                 padding: 5px 10px;
             }
-            select, textarea, button {
+            select, textarea, button, .wpm {
                 font-size: 1.2em;
                 font-family: "Ubuntu Mono", Arial, Helvetica, sans-serif;
                 border: 1px solid rgb(59, 59, 59);
             }
             textarea {
                 padding: 10px;
-                width: 400px;
+                width: 100%;
                 height: 100px;
             }
-            .controls {
-                width: 420px;
+           .controls {
+                width: 100%;
                 text-align: right;
             }
             button {
                 padding: 3px 10px;
+            }
+            .wpm {
+              background-color: transparent;
             }
         </style>
     </head>
     <body>
         <h1>CW QSO trainer</h1>
         <div class="options">
-            <select>
+            <label for="wave">WAVE</label>
+            <select name="wave">
                 <option>sine</option>
                 <option>square</option>
                 <option>sawtooth</option>
                 <option>triangle</option>
             </select>
+            <label for="wpm">WPM</label>
+            <input type="number" class="wpm" min="10" max="40" step="1" value="20" name="wpm">
             <label for="volume">Volume</label>
             <input type="range" class="volume" min="0" max="1" step="0.01" value="1" name="volume">
             <label for="frequency">Frequency</label>
-            <input type="range" class="frequency" min="400" max="800" step="5" value="600" name="frequency">            
-        </div>
+            <input type="range" class="frequency" min="400" max="800" step="5" value="600" name="frequency">
+       </div>
         <div class="workarea">
             <textarea></textarea>
         </div>

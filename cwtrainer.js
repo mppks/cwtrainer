@@ -385,9 +385,11 @@ class CWTrainer {
         // Sync UI controls with default settings
         const volumeSlider = document.querySelector('.volume');
         const frequencySlider = document.querySelector('.frequency');
+        const wpmSlider = document.querySelector('.wpm');
 
         if (volumeSlider) volumeSlider.value = DEFAULT_SETTINGS.VOLUME;
         if (frequencySlider) frequencySlider.value = DEFAULT_SETTINGS.FREQUENCY;
+        if (wpmSlider) wpmSlider.value = DEFAULT_SETTINGS.WPM;
     }
 
     /**
@@ -408,6 +410,12 @@ class CWTrainer {
         const frequencySlider = document.querySelector('.frequency');
         if (frequencySlider) {
             frequencySlider.addEventListener('input', (e) => this.#handleFrequencyChange(e));
+        }
+
+        // WPM input
+        const wpmInput = document.querySelector('.wpm');
+        if (wpmInput) {
+            wpmInput.addEventListener('change', (e) => this.#handleWpmChange(e));
         }
 
         // Handle audio context resume (required by some browsers)
@@ -503,6 +511,18 @@ class CWTrainer {
             this.#morseSound.frequency = frequency;
         }
         DEFAULT_SETTINGS.FREQUENCY = frequency;
+    }
+
+    /**
+     * Handle WPM slider change
+     * @private
+     */
+    #handleWpmChange(e) {
+        const wpm = parseFloat(e.target.value);
+        if (this.#morseSound) {
+            this.#morseSound.wpm = wpm;
+        }
+        DEFAULT_SETTINGS.WPM = wpm;
     }
 
     /**
