@@ -342,6 +342,8 @@ class CWTrainer {
     #textArea;
     #playButton;
     #stopButton;
+    #wpmInput;
+    #waveSelect;
 
     constructor() {
         this.#initializeAudio();
@@ -380,6 +382,8 @@ class CWTrainer {
         this.#textArea = document.querySelector('textarea');
         this.#playButton = document.getElementById('play');
         this.#stopButton = document.getElementById('stop');
+        this.#wpmInput = document.querySelector('.wpm');
+        this.#waveSelect = document.querySelector('select[name="wave"]');
 
         if (!this.#textArea || !this.#playButton || !this.#stopButton) {
             throw new Error('Required UI elements not found');
@@ -391,11 +395,10 @@ class CWTrainer {
         // Sync UI controls with default settings
         const volumeSlider = document.querySelector('.volume');
         const frequencySlider = document.querySelector('.frequency');
-        const wpmSlider = document.querySelector('.wpm');
 
         if (volumeSlider) volumeSlider.value = DEFAULT_SETTINGS.VOLUME;
         if (frequencySlider) frequencySlider.value = DEFAULT_SETTINGS.FREQUENCY;
-        if (wpmSlider) wpmSlider.value = DEFAULT_SETTINGS.WPM;
+        if (this.#wpmInput) this.#wpmInput.value = DEFAULT_SETTINGS.WPM;
     }
 
     /**
@@ -461,23 +464,29 @@ class CWTrainer {
             console.log(`Settings: ${this.#morseSound.wpm} WPM, ${this.#morseSound.frequency} Hz`);
             
             this.#morseSound.play(text);
-            
+
             // Update UI state onPlay
             this.#playButton.disabled = true;
             this.#stopButton.disabled = false;
+            this.#wpmInput.disabled = true;
+            this.#waveSelect.disabled = true;
 
             // Update UI state onEnded
             this.#morseSound.addEventListener('ended', () => {
                 this.#playButton.disabled = false;
                 this.#stopButton.disabled = true;
+                this.#wpmInput.disabled = false;
+                this.#waveSelect.disabled = false;
                 console.log('ended');
-            });           
+            });
 
         } catch (error) {
             console.error('Error playing Morse code:', error);
             alert(`Error: ${error.message}`);
             this.#playButton.disabled = false;
             this.#stopButton.disabled = true;
+            this.#wpmInput.disabled = false;
+            this.#waveSelect.disabled = false;
         }
     }
 
@@ -490,6 +499,11 @@ class CWTrainer {
             if (this.#morseSound) {
                 this.#morseSound.stop();
             }
+            // Reset UI state
+            this.#playButton.disabled = false;
+            this.#stopButton.disabled = true;
+            this.#wpmInput.disabled = false;
+            this.#waveSelect.disabled = false;
         } catch (error) {
             console.error('Error stopping playback:', error);
         }

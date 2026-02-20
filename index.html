@@ -11,6 +11,7 @@
                 margin: 0 auto;
                 max-width: 760px;
                 padding: 0 20px 20px 20px;
+                color: rgb(59, 59, 59);
                 background-color: rgb(240,240,240);
             }
             h1, h2, h3 {
@@ -46,6 +47,9 @@
             .wpm {
               background-color: transparent;
             }
+            input:disabled, select:disabled, button:disabled {
+                color: rgba(59, 59, 59, .3);
+            }
         </style>
     </head>
     <body>
@@ -70,7 +74,7 @@
         </div>
         <div class="controls">
             <button id="play">play</button>
-            <button id="stop">stop</button>        
+            <button id="stop" disabled>stop</button>        
         </div>
         <script src="cwtrainer.js"></script>
     </body>
